@@ -1,0 +1,14 @@
+---
+# vars for RedHat 6 yum-cron
+
+## e.g.
+# yumcron_update_cmd: security
+__yumcron_update_cmd: ""
+
+# yumcron_apply_updates: no
+__yumcron_apply_updates: yes
+
+# yumcron_email_to: someone@example.com
+## Note rpm config has a trailing space here.  Boo!
+__yumcron_email_to: " "
+

@@ -1,0 +1,55 @@
+---
+# RedHat 7 yum-cron configure tasks
+
+##
+# Note set_fact converts yes/no to bool, hence the ternary filter
+# see https://github.com/ansible/ansible/issues/11905
+##
+- name: ensure yum-cron apply_updates is configured
+  lineinfile:
+    dest: /etc/yum/yum-cron.conf
+    state: present
+    regexp: "^apply_updates"
+    line: "apply_updates = {{ yumcron_apply_updates|ternary('yes','no') }}"
+    owner: root
+    group: root
+    mode: 0644
+  tags:
+    - yumcron
+
+- name: ensure yum-cron update_cmd is configured
+  lineinfile:
+    dest: /etc/yum/yum-cron.conf
+    state: present
+    regexp: "^update_cmd"
+    line: "update_cmd = {{ yumcron_update_cmd }}"
+    owner: root
+    group: root
+    mode: 0644
+  tags:
+    - yumcron
+
+- name: ensure yum-cron emit_via is configured
+  lineinfile:
+    dest: /etc/yum/yum-cron.conf
+    state: present
+    regexp: "^emit_via"
+    line: "emit_via = {{ yumcron_emit_via }}"
+    owner: root
+    group: root
+    mode: 0644
+  tags:
+    - yumcron
+
+- name: ensure yum-cron email_to is configured
+  lineinfile:
+    dest: /etc/yum/yum-cron.conf
+    state: present
+    regexp: "^email_to"
+    line: "email_to = {{ yumcron_email_to }}"
+    owner: root
+    group: root
+    mode: 0644
+  tags:
+    - yumcron
+

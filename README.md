@@ -3,6 +3,8 @@ Role Name yum-cron
 [![Build Status](https://travis-ci.org/biggsean/ansible-role-yum-cron.svg?branch=master)](https://travis-ci.org/biggsean/ansible-role-yum-cron)
 Install and configure yum-cron on Centos 6/7
 
+This installs yum-cron to it's defaults unless they are overridden.  Keep in mind that CentOS6 it is default to install updates where in CentOS7 it is not.  You may consider creating a dynamic group that configures these as appropriate.
+
 Requirements
 ------------
 
@@ -13,48 +15,58 @@ Role Variables
 
 ### yumcron_update_on_ansible_run
 Default: *false*
+
 When set to true the role will run a yum update every time.
 
 ### yumcron_update_on_first_run
 Default: *true*
+
 This will check to see if yum-cron is installed and bring the machine up to date if it has not been installed yet.  This is beneficial if you start with this role that the machine will updated on the first provision.
 
-### yumcron_update_cmd (CentOS 7)
+### yumcron_update_cmd
+#### CentOS 7
 Default: *default*
+
 This sets the update_cmd parameter for yum-conf.
 
-### yumcron_apply_updates (CentOS 7)
-Default: *"no"* (quotes are required)
-Have yum-cron apply the updates.
+#### CentOS 6
+Default: *""*
 
-### yumcron_emit_via (CentOS 7)
+This corresponds to the YUM_PARAMETER Option.
+### yumcron_apply_updates
+#### CentOS 7
+Default: *no*
+
+Have yum-cron apply the updates.
+#### CentOS 6
+Default: *yes*
+
+This toggles DOWNLOAD_ONLY.  (yumcron_apply_updates = yes will set DOWNLOUD_ONLY to "no" and vice versa)
+### yumcron_emit_via (CentOS 7 only)
 Default: *stdio* if yumcron_email_to is _not_ defined else *email*
 You can also set this to the value you like.  In this case, it will set to your value and not depend on yumcron_email_to.
 
-### yumcron_email_to (CentOS 7)
+### yumcron_email_to
+#### CentOS 7
 Default: *root*
-
+#### CentOS 6
+Default: *""*
 
 Dependencies
 ------------
 
-A list of other roles hosted on Galaxy should go here, plus any details in regards to parameters that may need to be set for other roles, or variables that are used from other roles.
+None
 
 Example Playbook
 ----------------
 
-Including an example of how to use your role (for instance, with variables passed in as parameters) is always nice for users too:
 
     - hosts: servers
       roles:
-         - { role: username.rolename, x: 42 }
+         - { role: biggsean.yum-cron, yumcron_email_to: someone@example.com }
 
 License
 -------
 
-BSD
+MIT
 
-Author Information
-------------------
-
-An optional section for the role authors to include contact information, or a website (HTML is not allowed).

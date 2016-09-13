@@ -4,10 +4,17 @@
 - name: Include OS specific variables
   include_vars: "{{ ansible_os_family }}-{{ ansible_distribution_major_version }}.yml"
 
-- name: ensure yum-cron is installed
+##
+# Note that the version specific setup must run first
+##
+- include: setup-{{ ansible_os_family }}-{{ ansible_distribution_major_version }}.yml
+- include: setup-{{ ansible_os_family }}.yml
+
+- name: ensure packages are installed
   yum:
-    name: yum-cron
+    name: "{{ item }}"
     state: present
+  with_items: "{{ __yumcron_packages }}"
   register: __yum_cron_installed
   tags:
     - yumcron
@@ -21,5 +28,5 @@
   tags:
     - yumcron
 
-- include: setup-{{ ansible_os_family }}-{{ ansible_distribution_major_version }}.yml
+- include: configure-{{ ansible_os_family }}-{{ ansible_distribution_major_version }}.yml
 

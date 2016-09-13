@@ -1,0 +1,24 @@
+---
+# RedHat generic variable setup
+
+- name: Define yumcron_apply_updates
+  set_fact:
+    yumcron_apply_updates: "{{ __yumcron_apply_updates }}"
+  when: yumcron_apply_updates is not defined
+  tags:
+    - yumcron
+
+- name: Define yumcron_email_to
+  set_fact:
+    yumcron_email_to: "{{ __yumcron_email_to }}"
+  when: yumcron_email_to is not defined
+  tags:
+    - yumcron
+
+- name: Define yumcron_update_cmd
+  set_fact:
+    yumcron_update_cmd: "{{ __yumcron_update_cmd }}"
+  when: yumcron_update_cmd is not defined
+  tags:
+    - yumcron
+
