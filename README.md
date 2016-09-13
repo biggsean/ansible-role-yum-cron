@@ -1,6 +1,6 @@
 Role Name yum-cron
 =========
-
+[![Build Status](https://travis-ci.org/biggsean/ansible-role-yum-cron.svg?branch=master)](https://travis-ci.org/biggsean/ansible-role-yum-cron)
 Install and configure yum-cron on Centos 6/7
 
 Requirements
