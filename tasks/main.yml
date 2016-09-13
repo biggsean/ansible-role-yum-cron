@@ -4,6 +4,12 @@
 - name: Include OS specific variables
   include_vars: "{{ ansible_os_family }}-{{ ansible_distribution_major_version }}.yml"
 
+##
+# Note that the version specific setup must run first
+##
+- include: setup-{{ ansible_os_family }}-{{ ansible_distribution_major_version }}.yml
+- include: setup-{{ ansible_os_family }}.yml
+
 - name: ensure packages are installed
   yum:
     name: "{{ item }}"
@@ -22,26 +28,5 @@
   tags:
     - yumcron
 
-- name: Define yumcron_apply_updates
-  set_fact:
-    yumcron_apply_updates: "{{ __yumcron_apply_updates }}"
-  when: yumcron_apply_updates is not defined
-  tags:
-    - yumcron
-
-- name: Define yumcron_email_to
-  set_fact:
-    yumcron_email_to: "{{ __yumcron_email_to }}"
-  when: yumcron_email_to is not defined
-  tags:
-    - yumcron
-
-- name: Define yumcron_update_cmd
-  set_fact:
-    yumcron_update_cmd: "{{ __yumcron_update_cmd }}"
-  when: yumcron_update_cmd is not defined
-  tags:
-    - yumcron
-
-- include: setup-{{ ansible_os_family }}-{{ ansible_distribution_major_version }}.yml
+- include: configure-{{ ansible_os_family }}-{{ ansible_distribution_major_version }}.yml
 

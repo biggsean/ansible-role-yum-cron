@@ -1,39 +1,6 @@
 ---
-# RedHat 6 yum-cron setup
+# RedHat 6 specific setup
 
-- name: ensure yum-cron DOWNLOAD_ONLY is configured
-  lineinfile:
-    dest: /etc/sysconfig/yum-cron
-    state: present
-    regexp: "^DOWNLOAD_ONLY"
-    line: "DOWNLOAD_ONLY={{ yumcron_apply_updates|ternary('no','yes') }}"
-    owner: root
-    group: root
-    mode: 0644
-  tags:
-    - yumcron
-
-- name: ensure yum-cron YUM_PARAMETER is configured
-  lineinfile:
-    dest: /etc/sysconfig/yum-cron
-    state: present
-    regexp: "^YUM_PARAMETER"
-    line: "YUM_PARAMETER={{ yumcron_update_cmd }}"
-    owner: root
-    group: root
-    mode: 0644
-  tags:
-    - yumcron
-
-- name: ensure yum-cron MAILTO is configured
-  lineinfile:
-    dest: /etc/sysconfig/yum-cron
-    state: present
-    regexp: "^MAILTO"
-    line: "MAILTO={{ yumcron_email_to }}"
-    owner: root
-    group: root
-    mode: 0644
-  tags:
-    - yumcron
-
+##
+# Nothing to do at this time
+##
