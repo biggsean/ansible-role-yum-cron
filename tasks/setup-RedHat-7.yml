@@ -1,17 +1,17 @@
 ---
 # RedHat 7 yum-cron setup
 
+- name: Define yumcron_emit_via
+  set_fact:
+    yumcron_emit_via: "{{ __yumcron_emit_via }}"
+  when: yumcron_emit_via is not defined
+  tags:
+    - yumcron
+
 ##
 # Note set_fact converts yes/no to bool, hence the ternary filter
 # see https://github.com/ansible/ansible/issues/11905
 ##
-- name: Define yumcron_apply_updates
-  set_fact:
-    yumcron_apply_updates: "{{ __yumcron_apply_updates }}"
-  when: yumcron_apply_updates is not defined
-  tags:
-    - yumcron
-
 - name: ensure yum-cron apply_updates is configured
   lineinfile:
     dest: /etc/yum/yum-cron.conf
@@ -21,13 +21,6 @@
     owner: root
     group: root
     mode: 0644
-  tags:
-    - yumcron
-
-- name: Define yumcron_update_cmd
-  set_fact:
-    yumcron_update_cmd: "{{ __yumcron_update_cmd }}"
-  when: yumcron_update_cmd is not defined
   tags:
     - yumcron
 
@@ -43,13 +36,6 @@
   tags:
     - yumcron
 
-- name: Define yumcron_emit_via
-  set_fact:
-    yumcron_emit_via: "{{ __yumcron_emit_via }}"
-  when: yumcron_emit_via is not defined
-  tags:
-    - yumcron
-
 - name: ensure yum-cron emit_via is configured
   lineinfile:
     dest: /etc/yum/yum-cron.conf
@@ -59,13 +45,6 @@
     owner: root
     group: root
     mode: 0644
-  tags:
-    - yumcron
-
-- name: Define yumcron_email_to
-  set_fact:
-    yumcron_email_to: "{{ __yumcron_email_to }}"
-  when: yumcron_email_to is not defined
   tags:
     - yumcron
 

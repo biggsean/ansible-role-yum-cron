@@ -4,10 +4,11 @@
 - name: Include OS specific variables
   include_vars: "{{ ansible_os_family }}-{{ ansible_distribution_major_version }}.yml"
 
-- name: ensure yum-cron is installed
+- name: ensure packages are installed
   yum:
-    name: yum-cron
+    name: "{{ item }}"
     state: present
+  with_items: "{{ __yumcron_packages }}"
   register: __yum_cron_installed
   tags:
     - yumcron
@@ -18,6 +19,27 @@
     state: latest
   when: yumcron_update_on_ansible_run or
           ( yumcron_update_on_first_run and __yum_cron_installed|changed )
+  tags:
+    - yumcron
+
+- name: Define yumcron_apply_updates
+  set_fact:
+    yumcron_apply_updates: "{{ __yumcron_apply_updates }}"
+  when: yumcron_apply_updates is not defined
+  tags:
+    - yumcron
+
+- name: Define yumcron_email_to
+  set_fact:
+    yumcron_email_to: "{{ __yumcron_email_to }}"
+  when: yumcron_email_to is not defined
+  tags:
+    - yumcron
+
+- name: Define yumcron_update_cmd
+  set_fact:
+    yumcron_update_cmd: "{{ __yumcron_update_cmd }}"
+  when: yumcron_update_cmd is not defined
   tags:
     - yumcron
 

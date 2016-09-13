@@ -4,4 +4,7 @@
 yumcron_update_on_ansible_run: false
 yumcron_update_on_first_run: true
 
+__yumcron_packages:
+  - yum-cron
+  - libselinux-python
 
