@@ -1,0 +1,16 @@
+---
+# vars for RedHat 7 yum-cron
+
+## e.g.
+# yumcron_update_cmd: security
+__yumcron_update_cmd: default
+
+# yumcron_apply_updates: "yes"
+__yumcron_apply_updates: "no"
+
+# yumcron_emit_via: email
+__yumcron_emit_via: "{{ (yumcron_email_to is defined)|ternary('email','stdio') }}"
+
+# yumcron_email_to: someone@example.com
+__yumcron_email_to: root
+

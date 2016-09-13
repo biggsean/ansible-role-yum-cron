@@ -1,0 +1,25 @@
+---
+# tasks file for yum-cron
+
+- name: Include OS specific variables
+  include_vars: "{{ ansible_os_family }}-{{ ansible_distribution_major_version }}.yml"
+
+- name: ensure yum-cron is installed
+  yum:
+    name: yum-cron
+    state: present
+  register: __yum_cron_installed
+  tags:
+    - yumcron
+
+- name: ensure machine is up to date
+  yum:
+    name: "*"
+    state: latest
+  when: yumcron_update_on_ansible_run or
+          ( yumcron_update_on_first_run and __yum_cron_installed|changed )
+  tags:
+    - yumcron
+
+- include: setup-{{ ansible_os_family }}-{{ ansible_distribution_major_version }}.yml
+

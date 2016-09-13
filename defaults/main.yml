@@ -1,0 +1,7 @@
+---
+# defaults file for yum-cron
+
+yumcron_update_on_ansible_run: false
+yumcron_update_on_first_run: true
+
+
