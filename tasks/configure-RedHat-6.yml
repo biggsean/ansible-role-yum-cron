@@ -37,3 +37,11 @@
   tags:
     - yumcron
 
+- name: ensure yum-cron service is enabled and started
+  service:
+    name: yum-cron
+    state: started
+    enabled: yes
+  tags:
+    - yumcron
+
