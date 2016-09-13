@@ -1,6 +1,7 @@
 Role Name yum-cron
 =========
 [![Build Status](https://travis-ci.org/biggsean/ansible-role-yum-cron.svg?branch=master)](https://travis-ci.org/biggsean/ansible-role-yum-cron)
+
 Install and configure yum-cron on Centos 6/7
 
 This installs yum-cron to it's defaults unless they are overridden.  Keep in mind that CentOS6 it is default to install updates where in CentOS7 it is not.  You may consider creating a dynamic group that configures these as appropriate.
